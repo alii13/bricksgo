@@ -1,0 +1,33 @@
+.block-wrapper {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    background-color: #f04134;
+    border: 1px solid black;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.block-number {
+    color: #fff;
+}
+
+.dragger {
+    width: 60%;
+    height: 25%;
+}
+
+.block-parent {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.block-dragging {
+    background-color: #2ed47a;
+}
+
+.block-number {
+    font-size: 2em;
+    font-weight: 600;
+}
