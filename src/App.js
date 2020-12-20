@@ -59,6 +59,13 @@ export default class App extends Component {
     finish: false,
   };
 
+  componentDidMount() {
+    const shuffledIds = this.shuffleArray(this.state.blockIds);
+    this.setState({
+      blockIds: shuffledIds,
+    });
+  }
+
   shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -66,12 +73,14 @@ export default class App extends Component {
     }
     return array;
   }
-  componentDidMount() {
-    const shuffledIds = this.shuffleArray(this.state.blockIds);
-    this.setState({
-      blockIds: shuffledIds,
-    });
-  }
+
+
+  restartTimer = () => {
+    setTimeout(() => {
+      this.restart();
+    }, 3000);
+  };
+
   restart = () => {
     const shuffledIds = this.shuffleArray(this.state.blockIds);
     restart.play();
@@ -79,10 +88,13 @@ export default class App extends Component {
       blockIds: shuffledIds,
     });
   };
+
   moveToGithub = () => {
     link.play();
-    window.location.href = "https://google.com";
+    window.location.href = "https://github.com/alii13/bricksgo";
   };
+
+
   onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
@@ -107,7 +119,7 @@ export default class App extends Component {
     const blockData = this.state.blockData;
 
     //moving in same column
-    const newBlockIds = Array.from(this.state.blockIds);
+    let newBlockIds = Array.from(this.state.blockIds);
     newBlockIds.splice(source.index, 1);
     newBlockIds.splice(destination.index, 0, draggableId);
     let finishStatus = true;
@@ -120,6 +132,7 @@ export default class App extends Component {
       itemMoved.play();
     } else {
       applause.play();
+      this.restartTimer();
     }
 
     this.setState({
@@ -127,6 +140,9 @@ export default class App extends Component {
       finish: finishStatus,
     });
   };
+
+
+
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
